@@ -1,3 +1,4 @@
+import nh3
 from django.contrib import messages
 from django.db import transaction
 from django.db.models.functions import Lower
@@ -14,6 +15,7 @@ from django.views.generic import (
 )
 from django_htmx.http import HttpResponseClientRedirect
 from furl import furl
+from markdown import markdown
 from zen_queries import TemplateResponse as zTemplateResponse
 from zen_queries import fetch
 
@@ -212,6 +214,24 @@ class ProjectDetail(DetailView):
                 Lower("user__username")
             ),
             "orgs": self.object.orgs.order_by(Lower("name")),
+            "project": {
+                "application_url": self.object.application_url,
+                "copilot": self.object.copilot,
+                "copilot_notes": self.object.copilot_notes,
+                "copilot_support_ends_at": self.object.copilot_support_ends_at,
+                "created_at": self.object.created_at,
+                "created_by": self.object.created_by,
+                "get_absolute_url": self.object.get_absolute_url,
+                "get_staff_audit_url": self.object.get_staff_audit_url,
+                "get_staff_edit_url": self.object.get_staff_edit_url,
+                "get_status_display": self.object.get_status_display,
+                "slug": self.object.slug,
+                "status": self.object.status,
+                "status_description": nh3.clean(
+                    markdown(self.object.status_description)
+                ),
+                "title": self.object.title,
+            },
             "redirects": self.object.redirects.order_by("old_url"),
             "workspaces": self.object.workspaces.order_by("name"),
         }
