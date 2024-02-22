@@ -42,8 +42,18 @@
 
   {% #card title="Organisations" container=True %}
     {% #form_fieldset class="w-full items-stretch gap-y-6" %}
-      {% form_legend text="Organisations" class="sr-only" %}
-      {% multiselect field=form.orgs placeholder="Select one or more orgs" %}
+      {% form_legend text="Select organisations" class="-mb-2" %}
+      {% #multiselect id="id_orgs" name="orgs" placeholder="Select a organisation" custom_field required %}
+        {% for value, name in form.fields.orgs.choices %}
+          {% if value in form.orgs.value %}
+            {% var is_active=True %}
+          {% else %}
+            {% var is_active=False %}
+          {% endif %}
+
+          {% multiselect_option name=name value=value is_active=is_active %}
+        {% endfor %}
+      {% /multiselect %}
     {% /form_fieldset %}
   {% /card %}
 
