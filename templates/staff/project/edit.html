@@ -69,6 +69,14 @@
           {% multiselect_option name=name value=value is_active=is_active %}
         {% endfor %}
       {% /multiselect %}
+
+      {% if form.orgs.errors %}
+        <ul class="text-sm text-bn-ribbon-600 font-bold">
+          {% for error in form.orgs.errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
     {% /form_fieldset %}
   {% /card %}
 
