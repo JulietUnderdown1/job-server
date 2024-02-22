@@ -56,8 +56,8 @@
   {% /card %}
 
   {% #card title="Organisations" container=True %}
-    {% #form_fieldset class="w-full items-stretch gap-y-6" %}
-      {% form_legend text="Select organisations" class="-mb-2" %}
+    {% #form_fieldset class="w-full items-stretch gap-y-1" %}
+      {% form_legend text="Select organisations" %}
       {% #multiselect id="id_orgs" name="orgs" placeholder="Select a organisation" custom_field required %}
         {% for value, name in form.fields.orgs.choices %}
           {% if value in form.orgs.value %}
